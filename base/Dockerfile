@@ -1,4 +1,4 @@
-FROM golang:1.14.4-stretch AS builder
+FROM golang:1.14.4-buster AS builder
 
 LABEL maintainer="Free5GC <support@free5gc.org>"
 
@@ -17,8 +17,9 @@ RUN apt-get update \
 RUN apt-get clean
 
 # Get Free5GC
-RUN cd $GOPATH/src \
-    && git clone --recursive -b v3.1.1 -j `nproc` https://github.com/free5gc/free5gc.git
+# RUN cd $GOPATH/src \
+#     && git clone --recursive -b v3.1.1 -j `nproc` https://github.com/free5gc/free5gc.git
+COPY free5gc $GOPATH/src/free5gc
 
 # Build Free5GC NFs & WebUI
 RUN cd $GOPATH/src/free5gc \

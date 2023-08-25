@@ -5,12 +5,14 @@ LABEL maintainer="Free5GC <support@free5gc.org>"
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install dependencies
+    # && git clone -b master -j `nproc` https://github.com/aligungr/UERANSIM \
+COPY UERANSIM .
+
 RUN apt-get update \
     && apt-get install libsctp-dev lksctp-tools iproute2 -y \
     && wget https://github.com/Kitware/CMake/releases/download/v3.22.1/cmake-3.22.1-linux-x86_64.sh -O cmake_installer.sh \
     && chmod +x cmake_installer.sh \
     && ./cmake_installer.sh --skip-license \
-    && git clone -b master -j `nproc` https://github.com/aligungr/UERANSIM \
     && cd ./UERANSIM \
     && make
 
